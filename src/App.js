@@ -42,7 +42,7 @@ function App() {
 
           {/* Welcome Message and Start Button */}
           <div className="welcome-message">
-            <h1>Welcome to HomeTech</h1>
+            <h1>Welcome to ComeTech</h1>
             <p>Ready to see what you have?</p>
             <button onClick={handleStartClick} className="btn " style={{background:"#005AE3"}}>Start</button>
           </div>
