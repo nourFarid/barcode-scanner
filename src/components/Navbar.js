@@ -5,7 +5,7 @@ function Navbar() {
         <>
             <nav className="navbar navbar-expand-lg navbar-dark" style={{ margin: 0, padding: 0 }}>
                 <div className="container-fluid" style={{ background: "#000000", margin: 0, padding: 0 }}>
-                    <a className="navbar-brand" style={{ color: "white" }} href="#">Welcome, Ahmed</a>
+                    <a className="navbar-brand" style={{ color: "white" }} href="/">Welcome, Ahmed</a>
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@ function Navbar() {
 
                                 
                                 <NavLink
-                                    to={`/`}
+                                    to={`/totalMoney`}
                                     className="nav-link"
                                     style={({ isActive }) => ({
                                         color: isActive ? "#14c6de" : "white" // Blue color for active link, white for others
@@ -103,8 +103,7 @@ function Navbar() {
                                         color: isActive ? "#14c6de" : "white"
                                     })}
                                 >
-                                    بحث
-                                </NavLink>
+<i class="fa-solid fa-magnifying-glass"></i>                                </NavLink>
                                 </li>
                            
                         </ul>

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import GlobalResponse from'../globalResponse.json'
 
 const BarcodeScanner = ({ onBarcodeScan }) => {
     const [barcode, setBarcode] = useState(null);
@@ -106,7 +107,7 @@ const BarcodeScanner = ({ onBarcodeScan }) => {
                     
 التقاط        
 
-<i class="fa-solid fa-camera" style={{marginLeft:5}}></i>
+<i class="fa-solid fa-camera" style={{marginRight:5}}></i>
         </button>
 
                 {barcode && (
@@ -152,14 +153,14 @@ const BarcodeScanner = ({ onBarcodeScan }) => {
                                     <button
                                         style={{ margin: 3 }}
                                         className="btn btn-success"
-                                        onClick={() => toast.success("Increase clicked")}
+                                        onClick={() => toast.success(GlobalResponse.add)}
                                     >
                                         +
                                     </button>
                                     <button
                                         style={{ margin: 3 }}
                                         className="btn btn-danger"
-                                        onClick={() => toast.error("Decrease clicked")}
+                                        onClick={() => toast.error(GlobalResponse.add)}
                                     >
                                         -
                                     </button>

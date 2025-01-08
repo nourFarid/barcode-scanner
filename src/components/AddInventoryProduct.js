@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import BarcodeScanner from "./BarcodeScanner";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
-
+import GlobalResponse from'../globalResponse.json'
 function AddInventoryProduct() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -45,7 +45,7 @@ function AddInventoryProduct() {
             });
 
             // Show success toast
-            toast.success("Product added successfully!");
+            toast.success(GlobalResponse.add);
 
             setName('');
             setPrice('');
@@ -59,7 +59,7 @@ function AddInventoryProduct() {
             console.error("Error adding product:", error);
 
             // Show error toast
-            toast.error("Failed to add product.");
+            toast.error(GlobalResponse.error);
         }
     };
 
@@ -206,8 +206,6 @@ function AddInventoryProduct() {
              
                 </button>
             </div>
-
-            {/* Toast Container */}
             <ToastContainer />
         </>
     );

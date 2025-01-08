@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-
+import GlobalResponse from'../globalResponse.json'
 function ProductUpdate() {
   const navigate = useNavigate(); // For programmatic navigation
   const location = useLocation();
@@ -41,7 +41,7 @@ function ProductUpdate() {
           code,
         });
         if (response.status === 200) {
-          toast.success("تم تحديث المنتج");
+          toast.success(GlobalResponse.update);
           setTimeout(() => {
             navigate("/productList"); // Navigate to product list after success
           }, 1500); // Optional delay for toast message
@@ -60,7 +60,7 @@ function ProductUpdate() {
           code,
         });
         if (response.status === 200) {
-          toast.success("تم تحديث المنتج");
+          toast.success(GlobalResponse.update);
           setTimeout(() => {
             navigate("/productList"); // Navigate to product list after success
           }, 1500); // Optional delay for toast message
@@ -68,7 +68,7 @@ function ProductUpdate() {
       }
     } catch (error) {
       console.error(error);
-      toast.error("حدث خطأ اثناء تحديث المنتج");
+      toast.error(GlobalResponse.error);
     }
   };
 

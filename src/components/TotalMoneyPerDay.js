@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
+import GlobalResponse from'../globalResponse.json'
+import { toast, ToastContainer } from "react-toastify";
 
 function TotalMoneyPerDay() {
   const [totalMoney, setTotalMoney] = useState([]);
@@ -70,6 +72,7 @@ function TotalMoneyPerDay() {
       await axios.post("http://localhost:8080/totalMoneyPerDay/add", formData);
       setAddMoney("");
       isDay ? totalMoneyPerDayByDate() : getTotalMoneyPerDay();
+      toast.success(GlobalResponse.add)
     } catch (error) {
       console.error("Error adding total money:", error);
     }
@@ -80,6 +83,7 @@ function TotalMoneyPerDay() {
     try {
       await axios.delete(`http://localhost:8080/totalMoneyPerDay/delete/${id}`);
       isDay ? totalMoneyPerDayByDate() : getTotalMoneyPerDay();
+      toast.success(GlobalResponse.delete)
     } catch (error) {
       console.error("Error deleting total money:", error);
     }
@@ -92,6 +96,7 @@ function TotalMoneyPerDay() {
       setEditingRow(null);
       setUpdatedMoney("");
       isDay ? totalMoneyPerDayByDate() : getTotalMoneyPerDay();
+      toast.success(GlobalResponse.update)
     } catch (error) {
       console.error("Error updating total money:", error);
     }
@@ -253,6 +258,7 @@ style={{color:'white', marginLeft:10}}
             لا توجد بيانات
           </div>
         )}
+        <ToastContainer></ToastContainer>
       </div>
     </>
   );

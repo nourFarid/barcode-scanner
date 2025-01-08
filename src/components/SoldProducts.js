@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Pagination from "./Pagination";
 import { useNavigate } from "react-router-dom";
+import GlobalResponse from'../globalResponse.json'
 
 function SoldProducts() {
   const [soldProducts, setSoldProducts] = useState([]);
@@ -25,7 +26,7 @@ function SoldProducts() {
       setTotalPages(response.data.totalPages || 0);
     } catch (error) {
       console.log(error);
-      toast.error("Cannot get sold products");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);  // Stop loading
     }
@@ -39,10 +40,10 @@ function SoldProducts() {
     setLoading(true);  // Start loading
     try {
       await axios.post(`http://localhost:8080/totalMoneyPerDay/add`, formData);
-      toast.success("Total money added successfully!");
+      toast.success(GlobalResponse.add);
     } catch (error) {
       console.error("Error adding total money:", error);
-      toast.error("Error adding total money");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);  // Stop loading
     }
@@ -57,7 +58,7 @@ function SoldProducts() {
       setSoldProducts(response.data.data || []);
     } catch (error) {
       console.log(error);
-      toast.error("Error getting sold products by date");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);  // Stop loading
     }
@@ -67,12 +68,12 @@ function SoldProducts() {
     setLoading(true);  // Start loading
     try {
       await axios.delete(`http://localhost:8080/delete/${id}`);
-      toast.success("Product deleted successfully!");
+      toast.success(GlobalResponse.delete);
       // Refresh the list after deletion
       getSoldProducts(currentPage);
     } catch (error) {
       console.log(error);
-      toast.error("Error deleting product");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);  // Stop loading
     }

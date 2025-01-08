@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import BarcodeScanner from "./BarcodeScanner";
+import GlobalResponse from'../globalResponse.json'
+
 
 function Search() {
   const [activeView, setActiveView] = useState(""); // "" means no active view
@@ -25,7 +27,7 @@ function Search() {
       setSearchProduct(response.data.data || []);
     } catch (error) {
       console.log(error);
-      toast.error("خطأ في البحث عن المنتج");
+      toast.error(GlobalResponse.error);
     } finally {
       setIsLoading(false); // Hide the loader
     }
@@ -40,7 +42,7 @@ function Search() {
       setSearchProduct(response.data.data || []);
     } catch (error) {
       console.log(error);
-      toast.error("خطأ في البحث عن المنتج بالكود");
+      toast.error(GlobalResponse.error);
     } finally {
       setIsLoading(false); // Hide the loader
     }
@@ -58,7 +60,7 @@ function Search() {
       setSearchProduct(response.data.data ? [response.data.data] : []);
     } catch (error) {
       console.log(error);
-      toast.error("خطأ في البحث عن المنتج بالباركود");
+      toast.error(GlobalResponse.error);
     } finally {
       setIsLoading(false); // Hide the loader
     }
@@ -76,9 +78,9 @@ function Search() {
             : product
         )
       );
-      toast.success("تم زيادة الكمية");
+      toast.success(GlobalResponse.add);
     } catch (error) {
-      toast.error("فشل زيادة الكمية");
+      toast.error(GlobalResponse.error);
     }
   };
 
@@ -94,9 +96,9 @@ function Search() {
             : product
         )
       );
-      toast.success("تم نقص الكمية");
+      toast.success(GlobalResponse.add);
     } catch (error) {
-      toast.error("فشل نقص الكمية");
+      toast.error(GlobalResponse.error);
     }
   };
 
@@ -106,9 +108,9 @@ function Search() {
       setSearchProduct((prevProducts) =>
         prevProducts.filter((product) => product.id !== id)
       );
-      toast.success("تم حذف المنتج");
+      toast.success(GlobalResponse.delete);
     } catch (error) {
-      toast.error("فشل حذف المنتج");
+      toast.error(GlobalResponse.error);
     }
   };
 

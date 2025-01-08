@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import GlobalResponse from'../globalResponse.json'
 
 function AddTransaction() {
   const [total, setTotal] = useState("");
@@ -18,7 +19,7 @@ function AddTransaction() {
         setMethods(response.data);
       } catch (error) {
         console.log(error);
-        toast.error("Failed to fetch methods");
+        toast.error(GlobalResponse.error);
       }
     };
     getAllMethods();
@@ -38,10 +39,10 @@ function AddTransaction() {
       // setService("");
       setMethodId(null);
       setIsDebit(null);
-      toast.success("Transaction added successfully");
+      toast.success(GlobalResponse.dd);
     } catch (error) {
       console.log(error);
-      toast.error("Failed to add transaction");
+      toast.error(GlobalResponse.error);
     }
   };
 

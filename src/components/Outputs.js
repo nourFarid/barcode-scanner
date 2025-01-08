@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Pagination from "./Pagination";
+import GlobalResponse from'../globalResponse.json'
 
 function Outputs() {
   const [allOutputs, setAllOutputs] = useState([]);
@@ -25,7 +26,7 @@ function Outputs() {
       setCurrentPage(response.data.currentPage || 0);
       setTotalPages(response.data.totalPages || 0);
     } catch (error) {
-      toast.error("Error fetching outputs");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);
     }
@@ -38,12 +39,12 @@ function Outputs() {
       await axios.post(`http://localhost:8080/outputs/addOutput`, null, {
         params: { output, value },
       });
-      toast.success("Output added successfully");
+      toast.success(GlobalResponse.add);
       getAllOutputs(currentPage);
       setValue("");
       setOutput("");
     } catch (error) {
-      toast.error("Error adding output");
+      toast.error(GlobalResponse.error);
     }
   };
 
@@ -51,10 +52,10 @@ function Outputs() {
     setLoading(true);
     try {
       await axios.delete(`http://localhost:8080/outputs/deleteOutput/${id}`);
-      toast.success("Output deleted successfully");
+      toast.success(GlobalResponse.add);
       getAllOutputs(currentPage);
     } catch (error) {
-      toast.error("Error deleting output");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);
     }
@@ -69,13 +70,13 @@ function Outputs() {
         null,
         { params: { value: updatedValue, output: updatedOutput } }
       );
-      toast.success("Output updated successfully");
+      toast.success(GlobalResponse.add);
       setEditedOutput(null);
       setUpdatedOutput("");
       setUpdatedValue("");
       getAllOutputs(currentPage);
     } catch (error) {
-      toast.error("Error updating output");
+      toast.error(GlobalResponse.error);
     }
   };
 
@@ -88,6 +89,7 @@ function Outputs() {
       <div style={{ padding: 15 }}>
         <div className="mb-3 d-flex align-items-center" dir="rtl">
           <button
+          
             type="button"
             className="btn btn-success"
             onClick={addOutput}
@@ -168,6 +170,7 @@ function Outputs() {
                   <td>
                     {editedOutput === output.id ? (
                       <button
+                      style={{marginLeft:5}}
                         className="btn btn-primary"
                         onClick={(e) => updateOutput(e, output.id)}
                       >
@@ -177,6 +180,8 @@ function Outputs() {
                     ) : (
                       <button
                         className="btn btn-info"
+                        style={{marginLeft:5,color:"white"}}
+
                         onClick={() => {
                           setEditedOutput(output.id);
                           setUpdatedOutput(output.output);
@@ -188,6 +193,8 @@ function Outputs() {
                       </button>
                     )}
                     <button
+                                          style={{marginLeft:5}}
+
                       className="btn btn-danger"
                       onClick={() => deleteOutput(output.id)}
                     >

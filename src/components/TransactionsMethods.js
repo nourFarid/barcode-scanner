@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import GlobalResponse from'../globalResponse.json'
 function TransactionsMethods() {
   const [methods, setMethods] = useState([]);
   const [addedMethod, setAddedMethod] = useState("");
@@ -26,6 +27,9 @@ function TransactionsMethods() {
       await axios.post(
         `http://localhost:8080/transactionMethods/add?methodName=${addedMethod}&total=${addedTotal}`
       );
+      toast.success(GlobalResponse.add
+
+      )
       getMethods();
       setAddedMethod("");
       setAddedTotal("");
@@ -39,6 +43,7 @@ function TransactionsMethods() {
 
     try {
       await axios.delete(`http://localhost:8080/transactionMethods/delete/${id}`);
+      toast.success(GlobalResponse.delete)
       getMethods();
     } catch (error) {
       console.error("Error deleting method:", error);
@@ -53,6 +58,7 @@ function TransactionsMethods() {
       await axios.put(
         `http://localhost:8080/transactionMethods/update/${id}?methodName=${updatedMethodName}&total=${updatedTotal}`
       );
+      toast.success(GlobalResponse.update)
       setEditingMethod(null);
       setUpdatedMethodName("");
       setUpdatedTotal("");

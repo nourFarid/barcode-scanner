@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './components/App.css';
 import BarcodeScanner from './components/BarcodeScanner';
 import ProductList from './components/ProductsList';
 import Navbar from './components/Navbar';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Footer from './components/Footer';
 import TotalMoneyPerDay from './components/TotalMoneyPerDay';
 import Categories from './components/Categories';
@@ -19,85 +19,56 @@ import TransactionsMethods from './components/TransactionsMethods';
 import AddInventoryProduct from './components/AddInventoryProduct';
 import Outputs from './components/Outputs';
 
-
 function App() {
+  const [isStarted, setIsStarted] = useState(false);
+  const navigate = useNavigate();
+
+  const handleStartClick = () => {
+    setIsStarted(true);
+    navigate('/soldProducts');  // Navigates to the "Total Sold" page
+  };
+
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Routes>
+      {isStarted && <Navbar />}  {/* Show the Navbar after clicking start */}
+      
+      {/* Video Background */}
+      {!isStarted && (
+        <div className="video-background">
+          <video autoPlay muted loop className="background-video">
+            <source src="/videos/6914060_Motion Graphics_Motion Graphic_1280x720.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
 
+          {/* Welcome Message and Start Button */}
+          <div className="welcome-message">
+            <h1>Welcome to HomeTech</h1>
+            <p>Ready to see what you have?</p>
+            <button onClick={handleStartClick} className="btn " style={{background:"#005AE3"}}>Start</button>
+          </div>
+        </div>
+      )}
 
-<Route
-path='/'
-element={<TotalMoneyPerDay></TotalMoneyPerDay>}
-></Route>
+      <main>
+        <Routes>
+          <Route path="/totalMoney" element={<TotalMoneyPerDay />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/barcode" element={<BarcodeScanner />} />
+          <Route path="/productList" element={<ProductList />} />
+          <Route path="/addProduct" element={<AddProduct />} />
+          <Route path="/soldProducts" element={<SoldProducts />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/updateProduct/:productId" element={<UpdateProduct />} />
+          <Route path="/ProductSoldUpdate" element={<ProductSoldUpdate />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/addTransaction" element={<AddTransaction />} />
+          <Route path="/transactionsMethods" element={<TransactionsMethods />} />
+          <Route path="/addInventoryProduct" element={<AddInventoryProduct />} />
+          <Route path="/outputs" element={<Outputs />} />
+        </Routes>
+      </main>
 
-<Route
-path='/categories'
-element={<Categories></Categories>}
-></Route>
-<Route
-path='/barcode'
-element={<BarcodeScanner></BarcodeScanner>}
-></Route>
-<Route
-path='/productList'
-element={<ProductList></ProductList>}
-></Route>
-<Route
-path='/addProduct'
-element={<AddProduct></AddProduct>}
-></Route>
-
-<Route
-path='/soldProducts'
-element={<SoldProducts></SoldProducts>}
-></Route>
-
-<Route
-path='/search'
-element={<Search></Search>}
-></Route>
-
-<Route
-path='/updateProduct/:productId'
-element={<UpdateProduct></UpdateProduct>}
->
-
-</Route>
-
-<Route
-path='/ProductSoldUpdate'
-element={<ProductSoldUpdate></ProductSoldUpdate>}
->
-
-</Route>
-<Route
-path='/transactions'
-element={<Transactions></Transactions>}
->
-
-</Route>
-
-<Route
-path='/addTransaction'
-element={<AddTransaction></AddTransaction>}
-></Route>
-<Route
-path='/transactionsMethods'
-element={<TransactionsMethods></TransactionsMethods>}
-></Route>
-<Route
-path='/addInventoryProduct'
-element={<AddInventoryProduct></AddInventoryProduct>}
-></Route>
-
-<Route
-path='/outputs'
-element={<Outputs></Outputs>}
-></Route>
-      </Routes>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }

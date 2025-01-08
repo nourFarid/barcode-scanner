@@ -1,9 +1,11 @@
 
 import axios from "axios"
 import { useEffect,useState } from "react"
-import { Link, Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify";
 import Pagination from "./Pagination";
+import GlobalResponse from'../globalResponse.json'
+
 function ProductList(){
  const[products,setProducts]= useState([])
  const[inventoryProducts,setInventoryProducts]= useState([])
@@ -11,7 +13,6 @@ function ProductList(){
  const [activeView, setActiveView] = useState(""); // "" means no active view
  const [currentPage, setCurrentPage] = useState(1);
  const [totalPages, setTotalPages] = useState(1);
- const[ isInventory,setIsInventory]= useState(false)
  const [productsInCategory,setProductsInCategory]= useState({})
 
  async function fetchProducts(page = 1) {
@@ -27,11 +28,11 @@ function ProductList(){
 const deleteProduct=async(id)=>{
   try {
     const response = await axios.delete(`http://localhost:8080/products/deleteProduct/${id}`)
-    toast.success('تم حذف المنتج')
+    toast.success(GlobalResponse.add)
     fetchProducts(currentPage);
   } catch (error) {
 console.log(error);
-toast.error('خطأ اثناء حذف المنتج')
+toast.error(GlobalResponse.error)
 
     
   }
@@ -39,11 +40,11 @@ toast.error('خطأ اثناء حذف المنتج')
 const deleteInventoryProduct=async(id)=>{
   try {
     const response = await axios.delete(`http://localhost:8080/inventoryProducts/deleteProduct/${id}`)
-    toast.success('تم حذف المنتج')
+    toast.success(GlobalResponse.add)
     fetchInventoryProducts(currentPage);
   } catch (error) {
 console.log(error);
-toast.error('خطأ اثناء حذف المنتج')
+toast.error(GlobalResponse.error)
 
     
   }
@@ -78,7 +79,7 @@ const handlePageChange = (page) => {
           setProducts(response.data.data||[])
        
         } catch (error) {
-          toast.error('can not get products in category')
+          toast.error(GlobalResponse.error)
           
         }
       }
@@ -91,8 +92,8 @@ const handlePageChange = (page) => {
             const inventoryData = response.data.data || {}; // Ensure fallback
             setInventoryProducts(inventoryData.content || []); // Update only inventoryProducts
         } catch (error) {
-            toast.error("Cannot fetch inventory products for this category");
-            console.error("Error fetching inventory products:", error);
+          toast.error(GlobalResponse.error)
+          console.error("Error fetching inventory products:", error);
         }
     };
     

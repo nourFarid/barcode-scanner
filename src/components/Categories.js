@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import GlobalResponse from'../globalResponse.json'
+import { ToastContainer, toast } from "react-toastify";
 function Categories() {
   const [categories, setCategories] = useState([]);
   const [addedCategory, setAddedCategory] = useState("");
@@ -15,6 +16,7 @@ function Categories() {
   const addCategory = async (e) => {
     e.preventDefault();
     await axios.post(`http://localhost:8080/addCategory`, { name: addedCategory });
+    toast.success(GlobalResponse.add)
     getCategories();
     setAddedCategory("");
   };
@@ -22,12 +24,14 @@ function Categories() {
   const deleteCategory = async (e, id) => {
     e.preventDefault();
     await axios.delete(`http://localhost:8080/deleteCategory/${id}`);
+    toast.success(GlobalResponse.delete)
     getCategories();
   };
 
   const updateCategory = async (e, id) => {
     e.preventDefault();
     await axios.put(`http://localhost:8080/updateCategory/${id}`, { name: updatedCategoryName });
+    toast.success(GlobalResponse.update)
     setEditingCategory(null);
     setUpdatedCategoryName("");
     getCategories();
@@ -134,6 +138,7 @@ function Categories() {
               ))}
             </tbody>
           </table>
+                    <ToastContainer />
         </div>
       )}
     </>

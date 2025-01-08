@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Pagination from "./Pagination";
+import GlobalResponse from'../globalResponse.json'
 
 function Transactions() {
   const [activeView, setActiveView] = useState("all");
@@ -40,7 +41,7 @@ function Transactions() {
       setTotalPages(response.data.totalPages || 0);
     } catch (error) {
       console.log(error);
-      toast.error("Error getting transactions by date");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);
     }
@@ -50,7 +51,7 @@ function Transactions() {
     setLoading(true);
     try {
       await axios.delete(`http://localhost:8080/transactions/delete/${id}`);
-      toast.success("تم حذف العملية");
+      toast.success(GlobalResponse.delete);
       getAllTransactions(currentPage);
     } catch (error) {
       console.log(error);
@@ -99,10 +100,10 @@ function Transactions() {
     setLoading(true);
     try {
       await axios.post(`http://localhost:8080/totalMoneyPerDay/add`, formData);
-      toast.success("تم إضافة الحصيلة اليومية بنجاح");
+      toast.success(GlobalResponse.add);
     } catch (error) {
       console.error("Error adding total money:", error);
-      toast.error("حدث خطأ أثناء إضافة الحصيلة");
+      toast.error(GlobalResponse.error);
     } finally {
       setLoading(false);
     }
